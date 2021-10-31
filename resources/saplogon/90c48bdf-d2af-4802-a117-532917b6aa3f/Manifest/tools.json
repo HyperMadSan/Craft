@@ -1,0 +1,46 @@
+{
+    "GUID": "90c48bdf-d2af-4802-a117-532917b6aa3f",
+    "tools": [
+        {
+            "name": "slider",
+            "enabled": true,
+            "tool_options": [
+				{
+                    "index": 0,
+                    "name": "save",
+                    "image_file_path": "save.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },
+				{
+                    "index": 1,
+                    "name": "pprinter",
+                    "image_file_path": "pprinter.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },				
+                {
+                    "index": 2,
+                    "name": "general",
+                    "image_file_path": "general.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },
+                {
+                    "index": 3,
+                    "name": "dev",
+                    "image_file_path": "dev.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                }
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "name": "changetoolvalue",
+            "win_id": "0x10064",
+            "mac_id": 0
+        }
+    ]
+}

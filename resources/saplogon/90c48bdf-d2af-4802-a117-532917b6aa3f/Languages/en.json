@@ -1,0 +1,20 @@
+{
+    "LocalizedStrings": [
+        {
+            "ID": "save",
+            "value": "Save"
+        },	
+        {
+            "ID": "pprinter",
+            "value": "Pretty Printer"
+        },		
+        {
+            "ID": "general",
+            "value": "General Functions"
+        },
+        {
+            "ID": "dev",
+            "value": "Dev Functions"
+        }
+    ]
+}

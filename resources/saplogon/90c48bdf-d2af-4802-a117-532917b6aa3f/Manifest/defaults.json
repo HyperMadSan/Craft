@@ -1,0 +1,31 @@
+{
+        "GUID": "90c48bdf-d2af-4802-a117-532917b6aa3f",
+        "info": {
+                "name": "Saplogon_Crown",
+                "publisher": "HyperMadSan",
+                "version": "1.0",
+                "win_name": "saplogon.exe",
+                "win_minimum_supported_version": "0.0",
+                "win_maximum_supported_version": "1.0"
+        },
+        "crown": {
+            "rotate": {
+                "default_task": "changetoolvalue",
+                "tasks": [
+                    "changetoolvalue"
+                ],
+                "short_list": [
+                    "changetoolvalue"
+                ]
+            },
+            "press": {
+                "default_task": "playpause",
+                "tasks": [
+                    "playpause"
+                ],
+                "short_list": [
+                    "playpause"
+                ]
+            }
+        }
+}

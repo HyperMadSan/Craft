@@ -1,0 +1,54 @@
+{
+  "save": {
+    "values": [
+      {
+        "screen_value": "Save",
+        "shortcut_values": [ "0xA2", "0x53" ]
+      }
+    ]
+  },
+  "pprinter": {
+    "values": [
+      {
+        "screen_value": "Pretty Printer",
+        "shortcut_values": [ "0xA0", "0x70" ]
+      }
+    ]
+  },
+  "general": {
+    "values": [
+      {
+        "screen_value": "Leave Tool",
+        "shortcut_values": []
+      },
+      {
+        "screen_value": "Activate",
+        "shortcut_values": [ "0xA2", "0x72" ]
+      },
+      {
+        "screen_value": "Display/Edit",
+        "shortcut_values": [ "0xA2", "0x70" ]
+      }
+    ]
+  },
+  "dev": {
+    "values": [
+      {
+        "screen_value": "Leave Tool",
+        "shortcut_values": []
+      },
+      {
+        "screen_value": "Syntax Check",
+        "shortcut_values": [ "0xA2", "0x71" ]
+      },
+      {
+        "screen_value": "Interface/Properties",
+        "shortcut_values": [ "0xA0", "0x78" ]
+      },
+      {
+        "screen_value": "Display Object List",
+        "shortcut_values": [ "0xA2", "0xA0", "0x74" ]
+      }
+    ]
+  }
+}

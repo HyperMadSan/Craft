@@ -1,0 +1,31 @@
+{
+        "GUID": "540caf6c-b2ac-4c40-9220-52925198de56",
+        "info": {
+                "name": "CitrixSAPCrown",
+                "publisher": "HyperMadSan",
+                "version": "1.0",
+                "win_name": "wfica32.exe",
+                "win_minimum_supported_version": "0.0",
+                "win_maximum_supported_version": "1.0"
+        },
+        "crown": {
+            "rotate": {
+                "default_task": "changetoolvalue",
+                "tasks": [
+                    "changetoolvalue"
+                ],
+                "short_list": [
+                    "changetoolvalue"
+                ]
+            },
+            "press": {
+                "default_task": "playpause",
+                "tasks": [
+                    "playpause"
+                ],
+                "short_list": [
+                    "playpause"
+                ]
+            }
+        }
+}

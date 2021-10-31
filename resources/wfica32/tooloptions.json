@@ -1,0 +1,38 @@
+{
+  "save": {
+    "values": [
+      {
+        "screen_value": "Save",
+        "shortcut_values": [ "0xA2", "0x53" ]
+      }
+    ]
+  },
+  "check": {
+    "values": [
+      {
+        "screen_value": "Syntax Check",
+        "shortcut_values": [ "0xA2", "0x76" ]
+      }
+    ]
+  },
+  "dev": {
+    "values": [
+      {
+        "screen_value": "Leave Tool",
+        "shortcut_values": []
+      },
+      {
+        "screen_value": "Comment Line",
+        "shortcut_values": [ "0xA2", "0xBC" ]
+      },
+      {
+        "screen_value": "Uncomment Line",
+        "shortcut_values": [ "0xA2", "0xBE" ]
+      },
+      {
+        "screen_value": "Display Object List",
+        "shortcut_values": [ "0xA2", "0xA0", "0x74" ]
+      }
+    ]
+  }
+}

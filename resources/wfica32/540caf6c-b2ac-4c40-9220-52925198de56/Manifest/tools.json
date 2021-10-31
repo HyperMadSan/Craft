@@ -1,0 +1,39 @@
+{
+    "GUID": "540caf6c-b2ac-4c40-9220-52925198de56",
+    "tools": [
+        {
+            "name": "slider",
+            "enabled": true,
+            "tool_options": [
+				{
+                    "index": 0,
+                    "name": "save",
+                    "image_file_path": "save.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },
+				{
+                    "index": 1,
+                    "name": "check",
+                    "image_file_path": "general.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },				
+                {
+                    "index": 2,
+                    "name": "dev",
+                    "image_file_path": "dev.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                }
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "name": "changetoolvalue",
+            "win_id": "0x10064",
+            "mac_id": 0
+        }
+    ]
+}

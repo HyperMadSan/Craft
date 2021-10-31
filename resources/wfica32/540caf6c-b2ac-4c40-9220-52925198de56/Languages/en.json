@@ -1,0 +1,15 @@
+{
+    "LocalizedStrings": [
+        {
+            "ID": "save",
+            "value": "Save"
+        },	
+        {
+            "ID": "check",
+            "value": "Syntax Check"
+        },		
+            "ID": "dev",
+            "value": "Dev Functions"
+        }
+    ]
+}
