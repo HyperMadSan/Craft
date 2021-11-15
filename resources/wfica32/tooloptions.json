@@ -1,37 +1,56 @@
 {
-  "save": {
+  "rfui": {
     "values": [
       {
-        "screen_value": "Save",
-        "shortcut_values": [ "0xA2", "0x53" ]
+        "screen_value": "RF UI",
+        "hotkey_values": [ "0xA2", "0x4E" ],
+        "key_values": [ "0x14", "0xBF", "0x14", "0x4E", "0x14", "0xBF", "0x14", "0x53", "0x43", "0x57", "0x4D", "0x14", "0xBF", "0x14", "0x52", "0x46", "0x55", "0x49", "0x0D"  ]
       }
     ]
   },
-  "check": {
+  "custo": {
     "values": [
       {
-        "screen_value": "Syntax Check",
-        "shortcut_values": [ "0xA2", "0x76" ]
+        "screen_value": "SPRO",
+        "hotkey_values": [ "0xA2", "0x4E" ],
+        "key_values": [ "0x53", "0x50", "0x52", "0x4F", "0x0D", "0x13", "0x74" ]
       }
     ]
   },
-  "dev": {
+  "window": {
     "values": [
       {
-        "screen_value": "Leave Tool",
-        "shortcut_values": []
+        "screen_value": "New GUI Window",
+        "hotkey_values": [ "0xA2", "0x4E" ],
+        "key_values": [ ]
+      }
+    ]
+  },
+  "monitor": {
+    "values": [
+      {
+        "screen_value": "WH Monitor",
+        "hotkey_values": [ "0xA2", "0x4E" ],
+        "key_values": [ "0x14", "0xBF", "0x14", "0x4E", "0x14", "0xBF", "0x14", "0x53", "0x43", "0x57", "0x4D", "0x14", "0xBF", "0x14", "0x4D", "0x4F", "0x4E", "0x0D" ]
+      }
+    ]
+  },
+  "ppf": {
+    "values": [
+      {
+        "screen_value": "PPF Customizing",
+        "hotkey_values": [ "0xA2", "0x4E" ],
+        "key_values": [ "0x53", "0x50", "0x50", "0x46", "0x43", "0x41", "0x44", "0x4D", "0x0D" ]
       },
       {
-        "screen_value": "Comment Line",
-        "shortcut_values": [ "0xA2", "0xBC" ]
+        "screen_value": "PPF Processing",
+        "hotkey_values": [ "0xA2", "0x4E" ],
+        "key_values": [ "0x53", "0x50", "0x50", "0x46", "0x50", "0x0D" ]
       },
       {
-        "screen_value": "Uncomment Line",
-        "shortcut_values": [ "0xA2", "0xBE" ]
-      },
-      {
-        "screen_value": "Display Object List",
-        "shortcut_values": [ "0xA2", "0xA0", "0x74" ]
+        "screen_value": "PPF Conditions",
+        "hotkey_values": [ "0xA2", "0x4E" ],
+        "key_values": [ "0x14", "0xBF", "0x14", "0x4E", "0x14", "0xBF", "0x14", "0x53", "0x43", "0x57", "0x4D", "0x14", "0xBF", "0x14", "0x44", "0x4C", "0x56", "0x50", "0x50", "0x46", "0x43", "0x0D" ]
       }
     ]
   }

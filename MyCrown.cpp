@@ -45,9 +45,11 @@ typedef websocketpp::config::asio_client::message_type::ptr message_ptr;
 
 std::string pluginSessionId;
 Json::Value toolOptions;
+Json::Value selectedTool;
 bool resetToolChange = true;
-bool valIsSelected;
-Json::Value valShortcuts;
+bool toolOptionIsSelected = false;
+//bool toolIsHotkey = false;
+Json::Value selectedToolOption;
 
 #if !defined TARGET_NAME
 #define TARGET_NAME ""
@@ -148,7 +150,7 @@ std::string EmptyIfEmptyConverter(const std::string& str)
 	return str;
 }
 
-void pressVirtualKeys(Json::Value keys)
+void pressVirtualKeys(Json::Value hotkeys, Json::Value keys)
 {
 	// Set up a generic keyboard event.
 	INPUT ip;
@@ -156,29 +158,80 @@ void pressVirtualKeys(Json::Value keys)
 	ip.ki.time = 0;
 	ip.ki.dwExtraInfo = 0;
 
-	LOG << "Pressing virtual keys" << std::endl;
-
-	//Press shortcut keys
-	for (auto keyPress : keys)
+	//Virtual hotkeys: first press all keys, then release
+	if (hotkeys.size() > 0)
 	{
-		auto keyCodePress = std::stoi(keyPress.asString(), nullptr, 16);
-		ip.ki.wVk = keyCodePress;
-		ip.ki.dwFlags = 0;
-		ip.ki.wScan = MapVirtualKeyA(keyCodePress, 0);  //Needed for Citrix
-		SendInput(1, &ip, sizeof(INPUT));
-		LOG << "Press " << keyPress.asString() << std::endl;
+		LOG << "Pressing Hotkey(s)" << std::endl;
+
+		//Press keys
+		for (auto keyPress : hotkeys)
+		{
+			auto keyCodePress = std::stoi(keyPress.asString(), nullptr, 16);
+			ip.ki.wVk = keyCodePress;
+			ip.ki.dwFlags = 0;
+			ip.ki.wScan = MapVirtualKeyA(keyCodePress, 0);  //Needed for Citrix
+			SendInput(1, &ip, sizeof(INPUT));
+		}
+
+		//Unpress keys
+		for (auto& keyUnpress : hotkeys)
+		{
+			auto keyCodeUnpress = std::stoi(keyUnpress.asString(), nullptr, 16);
+			ip.ki.wVk = keyCodeUnpress;
+			ip.ki.dwFlags = KEYEVENTF_KEYUP;
+			ip.ki.wScan = MapVirtualKeyA(keyCodeUnpress, 0);  //Needed for Citrix
+			SendInput(1, &ip, sizeof(INPUT));
+		}
+
+		Sleep(1000);
 	}
 
-	//Unpress shortcut keys
-	for (auto& keyUnpress : keys)
+	//Virtual keys: press and release each key
+	if (keys.size() > 0)
 	{
-		auto keyCodeUnpress = std::stoi(keyUnpress.asString(), nullptr, 16);
-		ip.ki.wVk = keyCodeUnpress;
-		ip.ki.dwFlags = KEYEVENTF_KEYUP;
-		ip.ki.wScan = MapVirtualKeyA(keyCodeUnpress, 0);  //Needed for Citrix
-		SendInput(1, &ip, sizeof(INPUT));
-		LOG << "UnPress " << keyUnpress.asString() << std::endl;
+		LOG << "Pressing Normal key(s)" << std::endl;
+
+		//Press & release keys
+		for (auto keyPress : keys)
+		{
+			auto keyCode = std::stoi(keyPress.asString(), nullptr, 16);
+
+			if (keyCode == VK_PAUSE)
+			{
+				Sleep(100);
+			}
+			else
+			{
+				ip.ki.wVk = keyCode;
+				ip.ki.dwFlags = 0;
+				ip.ki.wScan = MapVirtualKeyA(keyCode, 0);  //Needed for Citrix
+				SendInput(1, &ip, sizeof(INPUT));
+				ip.ki.dwFlags = KEYEVENTF_KEYUP;
+				SendInput(1, &ip, sizeof(INPUT));
+			}
+		}
 	}
+}
+
+void resetToolOptionMessage(client* c, websocketpp::connection_hdl hdl)
+{
+
+	LOG << "Reset tool options" << std::endl;
+
+	Json::Value json;
+	json["message_type"] = "tool_change";
+	json["session_id"] = pluginSessionId;
+	json["tool_id"] = "slider";
+	json["reset_options"] = true;
+
+	websocketpp::lib::error_code ec;
+	c->send(hdl, Json::FastWriter().write(json), websocketpp::frame::opcode::value::text, ec);
+	if (ec)
+	{
+		LOG << "Sending tool_change failed because: " << ec.message() << std::endl;
+		return;
+	}
+
 }
 
 void on_open(client* c, websocketpp::connection_hdl hdl)
@@ -247,39 +300,24 @@ void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
 	{
 		if (resetToolChange)
 		{
-			Json::Value json;
-			json["message_type"] = "tool_change";
-			json["session_id"] = pluginSessionId;
-			json["tool_id"] = "slider";
-			json["reset_options"] = true;
-
-			websocketpp::lib::error_code ec;
-			c->send(hdl, Json::FastWriter().write(json), websocketpp::frame::opcode::value::text, ec);
-			if (ec)
-			{
-				LOG << "Sending tool_change failed because: " << ec.message() << std::endl;
-				return;
-			}
+			resetToolOptionMessage(c, hdl);
 			resetToolChange = false;
 		}
-
 		return;
 	}
 
 	if (messageType == "crown_touch_event")
 	{
 		auto touchState = json["touch_state"].asInt();
-		if (touchState == 0 && valIsSelected)
+		if (touchState == 0)
 		{
-			valIsSelected = false;
-			if (valShortcuts.size() == 0)
+			if (toolOptionIsSelected)
 			{
-				LOG << "No shortcut values found" << std::endl;
-				return;
+				toolOptionIsSelected = false;
+				pressVirtualKeys(selectedToolOption["hotkey_values"], selectedToolOption["key_values"]);
 			}
-
-			pressVirtualKeys(valShortcuts);
 		}
+		return;
 	}
 
 	if (messageType == "crown_turn_event")
@@ -295,8 +333,9 @@ void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
 		}
 
 		//Get current Tool Option
-		Json::Value toolOption = toolOptions[currentToolOption];
-		auto toolOptionValues = toolOption["values"];
+		toolOptionIsSelected = false;
+		//Json::Value toolOption = toolOptions[currentToolOption];
+		auto toolOptionValues = toolOptions[currentToolOption]["values"];
 		int valuesSize = toolOptionValues.size();
 		if (valuesSize == 0)
 		{
@@ -304,15 +343,16 @@ void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
 			return;
 		}
 
-		//If only one Tool Option available: execute shortcut immediatly
+		//If only one Tool Option available: execute virtual key press immediately
 		if (valuesSize == 1)
 		{
-			pressVirtualKeys(toolOptionValues[0]["shortcut_values"]);
+			//toolIsHotkey = ((toolOptionValues[0]["hotkey"] == "True") ? true : false);
+			pressVirtualKeys(toolOptionValues[0]["hotkey_values"], toolOptionValues[0]["key_values"]);
 			return;
 		}
 
 		// update and clamp value
-		int newIndex = toolOption["index"].asInt();
+		int newIndex = toolOptions[currentToolOption]["index"].asInt();
 		newIndex += ((ratchetDelta > 0) ? 1 : -1);
 		newIndex = std::min(newIndex, valuesSize);
 		newIndex = std::max(-1, newIndex);
@@ -342,8 +382,11 @@ void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
 				return;
 			}
 			else {
-				valShortcuts = toolOptionValues[newIndex]["shortcut_values"];
-				valIsSelected = true;
+				selectedToolOption = toolOptionValues[newIndex];
+				//electedToolOptionVKeys = toolOptionValues[newIndex]["key_values"];
+				//selectedToolOptionVHotKeys = toolOptionValues[newIndex]["key_values"];
+				toolOptionIsSelected = true;
+				//toolIsHotkey = ((toolOptionValues[newIndex]["hotkey"] == "True") ? true : false);
 			}
 		}
 		return;

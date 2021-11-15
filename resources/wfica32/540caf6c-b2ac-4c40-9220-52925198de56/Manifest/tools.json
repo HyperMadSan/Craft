@@ -7,22 +7,36 @@
             "tool_options": [
 				{
                     "index": 0,
-                    "name": "save",
-                    "image_file_path": "save.png",
+                    "name": "window",
+                    "image_file_path": "window.png",
                     "enabled": true,
                     "ratchet_enabled": true
-                },
+                },			
 				{
                     "index": 1,
-                    "name": "check",
-                    "image_file_path": "general.png",
+                    "name": "monitor",
+                    "image_file_path": "monitor.png",
                     "enabled": true,
                     "ratchet_enabled": true
-                },				
-                {
+                },	
+				{
                     "index": 2,
-                    "name": "dev",
-                    "image_file_path": "dev.png",
+                    "name": "rfui",
+                    "image_file_path": "rfui.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },	
+				{
+                    "index": 3,
+                    "name": "custo",
+                    "image_file_path": "custo.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },					
+                {
+                    "index": 4,
+                    "name": "ppf",
+                    "image_file_path": "ppf.png",
                     "enabled": true,
                     "ratchet_enabled": true
                 }

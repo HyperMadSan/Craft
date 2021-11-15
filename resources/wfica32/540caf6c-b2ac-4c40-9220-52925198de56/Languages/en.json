@@ -1,15 +1,24 @@
 {
     "LocalizedStrings": [
         {
-            "ID": "save",
-            "value": "Save"
+            "ID": "rfui",
+            "value": "RF UI"
         },	
         {
-            "ID": "check",
-            "value": "Syntax Check"
+            "ID": "custo",
+            "value": "SPRO"
+        },	
+        {
+            "ID": "window",
+            "value": "New GUI Window"
         },		
-            "ID": "dev",
-            "value": "Dev Functions"
+        {
+            "ID": "monitor",
+            "value": "WH Monitor"
+        },	
+		{		
+            "ID": "ppf",
+            "value": "PPF"
         }
     ]
 }
